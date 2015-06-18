@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /* 3d glass */
+        .glass-wrapper {
+            perspective: 1000px;
+            width:500px;
+            height: 300px;
+        }
+        .glass {
+            margin:100px 0 0 200px;
+            width: 150px;
+            height: 350px;
+            transform-style: preserve-3d;
+            /*transform: rotateX(-18deg) rotateY(20deg);*/
+            animation-name: rotating;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        .slide {
+            position: absolute;
+            width: 100px;
+            height: 300px;
+            /*background-color: rgba(230,230,230,0.5);*/
+            border: 1px solid rgba(0, 128, 0, 0.88);
+        }
+        .front          { transform:                  translateZ(calc(1.73205 * 50px)); background: rgba(16, 63, 236, 0.75); }
+        .front-left     { transform: rotateY(-60deg)  translateZ(calc(1.73205 * 50px)); background: rgba(37, 172, 162, 0.75);}
+        .back-left      { transform: rotateY(-120deg) translateZ(calc(1.73205 * 50px)); background: rgba(233, 124, 32, 0.75);}
+        .back           { transform: rotateY(-180deg) translateZ(calc(1.73205 * 50px)); background: rgba(190, 28, 65, 0.75); }
+        .back-right     { transform: rotateY(-240deg) translateZ(calc(1.73205 * 50px)); background: rgba(150, 32, 198, 0.75);}
+        .front-right    { transform: rotateY( 60deg)  translateZ(calc(1.73205 * 50px)); background: rgba(95, 33, 203, 0.75); }
+        @keyframes rotating {
+            0% {
+                transform: rotateX(-18deg) rotateY(0deg);
+            }
+            100% {
+                transform: rotateX(-18deg) rotateY(360deg);
+            }
+        }
+
+
+        /* flat cup */
+        .cup-wrapper {
+            margin: 30px;
+        }
+        .cup {
+            position: relative;
+            width: 200px;
+            height: 400px;
+        }
+        .mouth {
+            top: 0;
+            width: 100%;
+            z-index: 3;
+            height: 75px;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .mouth.top {
+            box-shadow: inset #E5E5E5 9px 10px 8px;
+            background: radial-gradient(ellipse at center, rgba(139, 131, 129, 0.65) 0%,rgba(0, 0, 0, 0) 50%);
+        }
+        .mouth.bottom {
+            box-shadow: inset -1px -5px 5px #808080;
+        }
+        .mouth.outer {
+            box-shadow: #808080 1px 5px 11px;
+        }
+        .mouth.cover {
+            box-shadow: inset #1D1D1D -2px 12px 15px;
+            background-color: white;
+            z-index: 2;
+        }
+
+        .body {
+            z-index: 1;
+            width: 95%;
+            margin: 0 auto;
+            right: 0;
+            left: 0;
+            height: 200px;
+            position: absolute;
+            border-bottom-left-radius: 95px 44px;
+            box-shadow: inset 5px 0 67px #808080;
+            border-bottom-right-radius: 95px 44px;
+            top: 48px;
+            background-color: white;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="glass-wrapper">
+    <div class="glass">
+        <div class="slide front"></div>
+        <div class="slide front-left"></div>
+        <div class="slide front-right"></div>
+        <div class="slide back"></div>
+        <div class="slide back-left"></div>
+        <div class="slide back-right"></div>
+        <div class="bottom"></div>
+    </div>
+</div>
+
+<div class="cup-wrapper">
+    <div class="cup">
+        <div class="mouth top"></div>
+        <div class="mouth bottom"></div>
+        <div class="mouth outer"></div>
+        <div class="mouth cover"></div>
+
+        <div class="body"></div>
+    </div>
+</div>
+</body>
+</html>
