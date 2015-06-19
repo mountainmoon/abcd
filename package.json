@@ -1,0 +1,15 @@
+{
+  "name": "abcd",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mountainmoon/abcd.git"
+  },
+  "author": "ykc",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.6.0",
+    "gulp-minify-html": "^1.0.3"
+  }
+}

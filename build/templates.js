@@ -1,0 +1,1 @@
+angular.module("abcd").run(["$templateCache", function($templateCache) {$templateCache.put("ng-timer.html","<div><circle-progress class=\"circle-progress\" progress=\"progress()\" r=\"{{r}}\" w=\"{{w}}\"></circle-progress><span>{{remain * 1000 | date : remain >= 3600 ? \'hh:mm:ss\' : \'mm:ss\'}}</span></div>");}]);

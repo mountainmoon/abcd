@@ -1,0 +1,14 @@
+{
+  "name": "abcd",
+  "version": "0.0.1",
+  "authors": "ykc",
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "bootstrap": "*"
+  }
+}

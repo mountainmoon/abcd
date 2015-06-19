@@ -3,15 +3,76 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <style>
+        .content {
+            padding-top: 100px;
+            position: relative;
+        }
+        .content > * {
+            margin-bottom: 30px;
+
+        }
+
+
+        /* flat cup */
+        .cup-wrapper {
+            /*margin:160px 30px 0 165px;*/
+        }
+        .cup {
+            position: relative;
+            width: 200px;
+            height: 250px;
+        }
+        .mouth {
+            top: 0;
+            width: 100%;
+            z-index: 3;
+            height: 75px;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .mouth.top {
+            box-shadow: inset #E5E5E5 9px 10px 8px;
+            background: radial-gradient(ellipse at center, rgba(139, 131, 129, 0.65) 0%,rgba(0, 0, 0, 0) 50%);
+            transition: all 2s linear;
+        }
+
+        .mouth.bottom {
+            box-shadow: inset -1px -5px 5px #808080;
+        }
+        .mouth.outer {
+            box-shadow: #808080 1px 5px 11px;
+        }
+        .mouth.cover {
+            box-shadow: inset #1D1D1D -2px 12px 15px;
+            background-color: white;
+            z-index: 2;
+        }
+        .body {
+            z-index: 1;
+            width: 95%;
+            margin: 0 auto;
+            right: 0;
+            left: 0;
+            height: 200px;
+            position: absolute;
+            border-bottom-left-radius: 95px 44px;
+            box-shadow: inset 5px 0 67px #808080;
+            border-bottom-right-radius: 95px 44px;
+            top: 48px;
+            background-color: white;
+        }
+
+
         /* 3d glass */
         .glass-wrapper {
             perspective: 1000px;
-            width:500px;
-            height: 300px;
+            /*width:500px;*/
+            height: 350px;
         }
         .glass {
-            margin:100px 0 0 200px;
+            /*margin:100px 0 0 200px;*/
             width: 150px;
             height: 350px;
             transform-style: preserve-3d;
@@ -44,80 +105,71 @@
         }
 
 
-        /* flat cup */
-        .cup-wrapper {
-            margin: 30px;
-        }
-        .cup {
+        /* timer */
+        .timer {
             position: relative;
             width: 200px;
-            height: 400px;
+            height: 200px;
+            display: block;
         }
-        .mouth {
-            top: 0;
-            width: 100%;
-            z-index: 3;
-            height: 75px;
-            border-radius: 50%;
+        .timer span {
+            text-align: center;
+            font-size: 25px;
+        }
+        .timer .circle-progress {
             position: absolute;
-        }
-        .mouth.top {
-            box-shadow: inset #E5E5E5 9px 10px 8px;
-            background: radial-gradient(ellipse at center, rgba(139, 131, 129, 0.65) 0%,rgba(0, 0, 0, 0) 50%);
-        }
-        .mouth.bottom {
-            box-shadow: inset -1px -5px 5px #808080;
-        }
-        .mouth.outer {
-            box-shadow: #808080 1px 5px 11px;
-        }
-        .mouth.cover {
-            box-shadow: inset #1D1D1D -2px 12px 15px;
-            background-color: white;
-            z-index: 2;
         }
 
-        .body {
-            z-index: 1;
-            width: 95%;
-            margin: 0 auto;
-            right: 0;
-            left: 0;
-            height: 200px;
-            position: absolute;
-            border-bottom-left-radius: 95px 44px;
-            box-shadow: inset 5px 0 67px #808080;
-            border-bottom-right-radius: 95px 44px;
-            top: 48px;
-            background-color: white;
+        .circle-progress path {
+            stroke: #6ABC40;
+            -webkit-transition: stroke-dashoffset ease .7s;
+            transition: stroke-dashoffset ease .7s;
+            stroke-linecap: round;
         }
 
 
     </style>
 </head>
-<body>
+<body ng-app="demo" class="container-fluid">
+    <div class="row content">
 
-<div class="glass-wrapper">
-    <div class="glass">
-        <div class="slide front"></div>
-        <div class="slide front-left"></div>
-        <div class="slide front-right"></div>
-        <div class="slide back"></div>
-        <div class="slide back-left"></div>
-        <div class="slide back-right"></div>
-        <div class="bottom"></div>
+        <div class="cup-wrapper col-md-4 text-center">
+            <div class="cup center-block">
+                <div class="mouth top"></div>
+                <div class="mouth bottom"></div>
+                <div class="mouth outer"></div>
+                <div class="mouth cover"></div>
+
+                <div class="body"></div>
+            </div>
+        </div>
+
+        <div class="glass-wrapper col-md-4">
+            <div class="glass center-block">
+                <div class="slide front"></div>
+                <div class="slide front-left"></div>
+                <div class="slide front-right"></div>
+                <div class="slide back"></div>
+                <div class="slide back-left"></div>
+                <div class="slide back-right"></div>
+                <!--<div class="bottom"></div>-->
+            </div>
+        </div>
+
+
+
+        <div class="timer-wrapper col-md-4">
+            <timer class="timer center-block" total-time="10"></timer>
+        </div>
     </div>
-</div>
 
-<div class="cup-wrapper">
-    <div class="cup">
-        <div class="mouth top"></div>
-        <div class="mouth bottom"></div>
-        <div class="mouth outer"></div>
-        <div class="mouth cover"></div>
 
-        <div class="body"></div>
-    </div>
-</div>
+
 </body>
+<script src="bower_components/angular/angular.js"></script>
+<script src="build/ng-timer.js"></script>
+<script src="build/templates.js"></script>
+<script>
+    angular.module('demo', ['abcd']);
+</script>
 </html>
