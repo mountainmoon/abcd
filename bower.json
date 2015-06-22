@@ -9,6 +9,6 @@
   ],
   "dependencies": {
     "angular": "~1.4.1",
-    "bootstrap": "*"
+    "bootstrap": "~3.3.5"
   }
 }

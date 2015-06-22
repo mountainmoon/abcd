@@ -1,39 +1,84 @@
 (function() {
   'use strict';
 
-  angular.module('abcd', []);
+  angular.module('timer', []);
 
-  angular.module('abcd').directive('timer', timer);
+  angular.module('timer').directive('timer', timer);
 
-  angular.module('abcd').directive('circleProgress', circleProgress);
+  angular.module('timer').directive('circleProgress', circleProgress);
 
+  /**
+   * todo: trigger events when the state is changed; add ready state.
+   */
   function timer($interval) {
     return {
       restrict: 'E',
       scope: {
-        totalTime: '@'
+        totalTime: '=',
+        option: '=',  // see `circleProgress`
+        id: '@'
       },
       templateUrl: 'ng-timer.html',
       link: function(scope) {
-        scope.remain = scope.totalTime = +scope.totalTime;
-        scope.r = 95;
-        scope.w = 10;
+        var obj = {}, promise = obj;
+
+        scope.$watch('totalTime', function(totalTime) {
+          totalTime = parseInt(totalTime);
+          if (isNaN(totalTime)) return;
+
+          // todo: should unwatch it when it is initialized ?
+          scope.remain = totalTime;
+          if (promise.then) $interval.cancel(promise);
+          run();
+        });
+
         scope.progress = function() {
           return 1 - scope.remain / scope.totalTime;
         };
 
-        var p = $interval(function() {
-          if (scope.remain <= 0)
-            $interval.cancel(p);
-          else
-            scope.remain--;
-        }, 1000)
+        function run() {
+          promise = $interval(function() {
+            if (scope.remain <= 0)
+              $interval.cancel(promise);
+            else
+              scope.remain--;
+          }, 1000);
+        }
+
+
+        // control timers through angular events
+        scope.$on('timer.run', function(event, id) {
+          if (typeof id === 'undefined' || (id && id === scope.id)) {
+            if (promise.then) return;
+            run();
+          }
+        });
+
+        scope.$on('timer.pause', function(event, id) {
+          if (typeof id === 'undefined' || (id && id === scope.id)) {
+            if (promise.then) {
+              $interval.cancel(promise);
+              promise = obj;
+            }
+          }
+        });
+
+        scope.$on('timer.stop', function(event, id) {
+          if (typeof id === 'undefined' || (id && id === scope.id)) {
+            scope.remain = scope.totalTime = 0;
+            if (promise.then) {
+              $interval.cancel(promise);
+              promise = obj;
+            }
+          }
+        })
+
       }
     }
   }
 
   function circleProgress($compile) {
-    // http://spencermortensen.com/articles/bezier-circle/
+    // see the factor's detail in http://spencermortensen.com/articles/bezier-circle/
     var factor = 0.5519;
 
     var xmlns = 'http://www.w3.org/2000/svg';

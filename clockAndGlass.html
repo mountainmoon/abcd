@@ -3,11 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="build/lib/css/bootstrap.min.css"/>
     <style>
         .content {
             padding-top: 100px;
-            position: relative;
         }
         .content > * {
             margin-bottom: 30px;
@@ -112,25 +111,33 @@
             height: 200px;
             display: block;
         }
-        .timer span {
+        .timer .timer-text {
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: calc(50% - 0.7em);
+            position: absolute;
             text-align: center;
-            font-size: 25px;
+            font-size: 30px;
         }
         .timer .circle-progress {
             position: absolute;
         }
+        .timer .timer-surface {
+            border-radius:50%;
 
+        }
         .circle-progress path {
             stroke: #6ABC40;
-            -webkit-transition: stroke-dashoffset ease .7s;
-            transition: stroke-dashoffset ease .7s;
+            -webkit-transition: stroke-dashoffset linear 1s;
+            transition: stroke-dashoffset linear 1s;
             stroke-linecap: round;
         }
 
 
     </style>
 </head>
-<body ng-app="demo" class="container-fluid">
+<body class="container-fluid">
     <div class="row content">
 
         <div class="cup-wrapper col-md-4 text-center">
@@ -143,6 +150,7 @@
                 <div class="body"></div>
             </div>
         </div>
+
 
         <div class="glass-wrapper col-md-4">
             <div class="glass center-block">
@@ -157,19 +165,26 @@
         </div>
 
 
-
-        <div class="timer-wrapper col-md-4">
-            <timer class="timer center-block" total-time="10"></timer>
+        <div class="timer-wrapper col-md-4" ng-app="demo" ng-controller="demoController">
+            <timer class="timer center-block" total-time="time" option="{r: 95, w: 10}"></timer>
+            <div class="row timer-control-panel text-center">
+                <button ng-click="$broadcast('timer.pause')">pause</button>
+                <button ng-click="$broadcast('timer.run')">run</button>
+                <button ng-click="$broadcast('timer.stop')">stop</button>
+                <input type="text" ng-model="time" placeholder="reset time(s)"/>
+            </div>
         </div>
+
     </div>
-
-
-
 </body>
-<script src="bower_components/angular/angular.js"></script>
+<script src="build/lib/js/angular.min.js"></script>
 <script src="build/ng-timer.js"></script>
 <script src="build/templates.js"></script>
 <script>
-    angular.module('demo', ['abcd']);
+    var demo = angular.module('demo', ['timer']);
+    demo.controller('demoController', function($scope) {
+        $scope.time = 60;
+    })
+
 </script>
 </html>

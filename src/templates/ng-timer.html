@@ -1,4 +1,5 @@
 <div>
-    <circle-progress class="circle-progress" progress="progress()" r="{{r}}" w="{{w}}"></circle-progress>
-    <span>{{remain * 1000 | date : remain >= 3600 ? 'hh:mm:ss' : 'mm:ss'}}</span>
+    <circle-progress class="circle-progress" progress="progress()" r="{{option.r}}" w="{{option.w}}"></circle-progress>
+    <span class="timer-text">{{remain * 1000 | date : remain >= 3600 ? 'hh:mm:ss' : 'mm:ss'}}</span>
+    <div class="timer-surface"></div>
 </div>
