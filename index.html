@@ -118,7 +118,7 @@
             top: calc(50% - 0.7em);
             position: absolute;
             text-align: center;
-            font-size: 30px;
+            font-size: 35px;
         }
         .timer .circle-progress {
             position: absolute;
@@ -129,15 +129,22 @@
         }
         .circle-progress path {
             stroke: #6ABC40;
-            -webkit-transition: stroke-dashoffset linear 1s;
-            transition: stroke-dashoffset linear 1s;
+            -webkit-transition: all linear 1s;
+            transition: all linear 1s;
             stroke-linecap: round;
+        }
+        .timer.yellow path {
+            stroke: #d7bb3a
+        }
+        .timer.red path {
+            stroke: #bc633a;
         }
 
 
     </style>
 </head>
 <body class="container-fluid">
+    <h3 class="row text-center"><a href="https://github.com/teambition/Hire" target="_blank">2只css水杯， 以及1个angular计时器</a></h3>
     <div class="row content">
 
         <div class="cup-wrapper col-md-4 text-center">
@@ -166,7 +173,8 @@
 
 
         <div class="timer-wrapper col-md-4" ng-app="demo" ng-controller="demoController">
-            <timer class="timer center-block" total-time="time" option="{r: 95, w: 10}"></timer>
+            <timer class="timer center-block" remain="remain"
+                   ng-class="{yellow: remain < time/2, red: remain < time / 4}" total-time="time" option="{r: 95, w: 10}"></timer>
             <div class="row timer-control-panel text-center">
                 <button ng-click="$broadcast('timer.pause')">pause</button>
                 <button ng-click="$broadcast('timer.run')">run</button>
@@ -183,7 +191,7 @@
 <script>
     var demo = angular.module('demo', ['timer']);
     demo.controller('demoController', function($scope) {
-        $scope.time = 60;
+        $scope.time = 15;
     })
 
 </script>

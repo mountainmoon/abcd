@@ -15,7 +15,8 @@
       restrict: 'E',
       scope: {
         totalTime: '=',
-        option: '=',
+        option: '=',  // see `circleProgress`
+        remain: '=',
         id: '@'
       },
       templateUrl: 'ng-timer.html',
@@ -78,7 +79,7 @@
   }
 
   function circleProgress($compile) {
-    // see the factor detail in http://spencermortensen.com/articles/bezier-circle/
+    // see the factor's detail in http://spencermortensen.com/articles/bezier-circle/
     var factor = 0.5519;
 
     var xmlns = 'http://www.w3.org/2000/svg';

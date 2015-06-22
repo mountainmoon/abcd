@@ -16,6 +16,7 @@
       scope: {
         totalTime: '=',
         option: '=',  // see `circleProgress`
+        remain: '=',
         id: '@'
       },
       templateUrl: 'ng-timer.html',
