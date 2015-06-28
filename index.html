@@ -10,7 +10,6 @@
         }
         .content > * {
             margin-bottom: 30px;
-
         }
 
 
@@ -67,13 +66,10 @@
         /* 3d glass */
         .glass-wrapper {
             perspective: 1000px;
-            /*width:500px;*/
             height: 350px;
         }
         .glass {
-            /*margin:100px 0 0 200px;*/
-            width: 150px;
-            height: 350px;
+            height: 300px;
             transform-style: preserve-3d;
             /*transform: rotateX(-18deg) rotateY(20deg);*/
             animation-name: rotating;
@@ -85,8 +81,21 @@
             position: absolute;
             width: 100px;
             height: 300px;
-            /*background-color: rgba(230,230,230,0.5);*/
             border: 1px solid rgba(0, 128, 0, 0.88);
+            margin: auto;
+            left: 0;
+            right: 0;
+        }
+        .slide.bottom {
+            width: 200px;
+            height: calc(1.73205 * 100px);
+            -webkit-clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+            clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+            transform: rotateX(-90deg) translateZ(150px);
+            background-color: rgba(141, 205, 215, 0.75);
+            position: absolute;
+            top: 0;
+            bottom: 0;
         }
         .front          { transform:                  translateZ(calc(1.73205 * 50px)); background: rgba(16, 63, 236, 0.75); }
         .front-left     { transform: rotateY(-60deg)  translateZ(calc(1.73205 * 50px)); background: rgba(37, 172, 162, 0.75);}
@@ -140,7 +149,6 @@
             stroke: #bc633a;
         }
 
-
     </style>
 </head>
 <body class="container-fluid">
@@ -167,7 +175,7 @@
                 <div class="slide back"></div>
                 <div class="slide back-left"></div>
                 <div class="slide back-right"></div>
-                <!--<div class="bottom"></div>-->
+                <div class="slide bottom"></div>
             </div>
         </div>
 
