@@ -24,12 +24,19 @@
         var obj = {}, promise = obj;
 
         scope.$watch('totalTime', function(totalTime) {
+          if (promise.then)  {
+            $interval.cancel(promise);
+            promise = obj;
+          }
+
           totalTime = parseInt(totalTime);
-          if (isNaN(totalTime)) return;
+          if (isNaN(totalTime)) {
+            scope.remain = 0;
+            return;
+          }
 
           // todo: should unwatch it when it is initialized ?
           scope.remain = totalTime;
-          if (promise.then) $interval.cancel(promise);
           run();
         });
 
@@ -48,6 +55,7 @@
 
 
         // control timers through angular events
+        // todo: should run immediately. or keep the accurate time(Date) ?
         scope.$on('timer.run', function(event, id) {
           if (typeof id === 'undefined' || (id && id === scope.id)) {
             if (promise.then) return;
