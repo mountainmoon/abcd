@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 
 
 gulp.task('templates', function () {
-  gulp.src('./src/templates/*.html')
+  return gulp.src('./src/templates/*.html')
     .pipe(minifyHtml({
       empty: true,
       quotes: true
@@ -13,15 +13,28 @@ gulp.task('templates', function () {
     .pipe(gulp.dest('./build/'));
 });
 
-gulp.task('build', function() {
-  gulp.src('./src/*.js')
-    .pipe(gulp.dest('./build'));
+gulp.task('build', function(cb) {
+  var steams = [], i = 0;
 
-  gulp.src('./bower_components/bootstrap/dist/css/bootstrap.min.css')
-    .pipe(gulp.dest('./build/lib/css/'));
+  steams.push(
+    gulp.src('./src/*.js')
+      .pipe(gulp.dest('./build')).on('finish', end)
+  );
 
-  gulp.src('./bower_components/angular/angular.min.js')
-    .pipe(gulp.dest('./build/lib/js/'));
+  steams.push(
+    gulp.src('./bower_components/bootstrap/dist/css/bootstrap.min.css')
+      .pipe(gulp.dest('./build/lib/css/').on('finish', end))
+  );
+
+  steams.push(
+    gulp.src('./bower_components/angular/angular.min.js')
+      .pipe(gulp.dest('./build/lib/js/').on('finish', end))
+  );
+
+  function end() {
+    ++i == steams.length && cb();
+  }
 });
+
 
 gulp.task('default', ['templates', 'build']);
